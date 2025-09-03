@@ -1,45 +1,71 @@
 <!DOCTYPE html>
-
-<html lang="en"><head><meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="favicon.ico" rel="icon" sizes="any"/>
-<link href="assets/styles.css" rel="stylesheet"/>
-<title>Research - The Financial Bird</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="icon" sizes="any" href="favicon.ico"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <title>Research - The Financial Bird</title>
+</head>
 <body onload="initTheme();initHeaderBindings();">
-<header class="header"><div class="inner">
-<div class="site-title">
-<img alt="The Financial Bird logo" class="logo" src="assets/financial-bird-logo.png"/>
-<h1>The Financial Bird</h1>
-<label class="switch" style="margin-left:auto"><span class="small">Theme</span><input id="themeToggle" type="checkbox"/></label>
-<a class="button secondary" href="#" id="subscribeBtn">Subscribe</a>
-</div>
-<nav class="nav">
-<a class="" href="index.html">Home</a>
-<a class="active" href="research.html">Research</a>
-<a class="" href="calendars.html">Calendars</a>
-<a class="" href="portfolio.html">TFB Portfolio</a>
-<a class="" href="blog.html">Blog</a>
-<a class="" href="stocks-to-watch.html">Stocks to Watch</a>
+<header class="header">
+  <div class="inner">
+    <div class="site-title">
+      <img class="logo" src="assets/financial-bird-logo.png" alt="The Financial Bird logo"/>
+      <h1>The Financial Bird</h1>
+      <label class="switch" style="margin-left:auto">
+        <span class="small">Theme</span>
+        <input id="themeToggle" type="checkbox"/>
+      </label>
+      <a id="subscribeBtn" class="button secondary" href="#">Subscribe</a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a class="active" href="research.html">Research</a>
+      <a href="calendars.html">Calendars</a>
+      <a href="portfolio.html">TFB Portfolio</a>
+      <a href="blog.html">Blog</a>
+      <a href="stocks-to-watch.html">Stocks to Watch</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
 
-<a class="" href="about.html">About</a>
-</nav>
-</div></header>
-<main class="container"><div class="small" style="margin-bottom:10px"><a href="research-archive.html">See research archive</a></div><div id="researchNote"></div></main>
+<main class="container">
+  <!-- The weekly research note will be injected here -->
+  <div id="researchContent"></div>
+
+  <!-- Link to the archive page (optional, keep if you use it) -->
+  <div style="margin-top:16px">
+    <a class="button secondary" href="research-archive.html">See research archive</a>
+  </div>
+</main>
+
 <footer class="footer">© 2025 The Financial Bird</footer>
-<div class="modal" id="newsletterModal" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);z-index:1000">
-<div class="card" style="max-width:520px;width:92%">
-<div class="h2">Subscribe to The Financial Bird</div>
-<p>Get weekly market notes and stocks to watch every Monday.</p>
-<form action="https://formspree.io/f/xgvlaeny" method="POST">
-<input class="input" name="email" placeholder="Email" required="" type="email"/>
-<div style="margin-top:10px;display:flex;gap:10px">
-<button class="button" onclick="localStorage.setItem('tfb_sub_seen','1')" type="submit">Subscribe</button>
-<button class="button secondary" onclick="document.getElementById('newsletterModal').style.display='none';localStorage.setItem('tfb_sub_seen','1')" type="button">Maybe later</button>
-</div>
-</form>
-</div>
-</div>
+
+<!-- Scripts required by the site -->
 <script src="assets/util.js"></script>
 <script src="assets/ai.js"></script>
-<script>document.addEventListener('DOMContentLoaded', function(){ renderResearchDaily('#researchNote'); });</script>
-</body></html>
+
+<!-- 7-day TTL wrapper: clears old cache and renders the weekly research -->
+<script>
+(function(){
+  var TTL = 604800000; // 7 days in ms
+  try {
+    var ts = parseInt(localStorage.getItem('tfb_research_ts') || '0', 10);
+    if (!ts || Date.now() - ts >= TTL) {
+      localStorage.removeItem('tfb_research_html');
+      localStorage.removeItem('tfb_research_week');
+    }
+  } catch (e) {}
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try {
+      renderResearch('#researchContent');
+      localStorage.setItem('tfb_research_ts', String(Date.now()));
+    } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
