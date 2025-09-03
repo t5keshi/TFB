@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="icon" sizes="any" href="favicon.ico"/>
+<link rel="stylesheet" href="assets/styles.css"/>
+<title>Stocks to Watch - The Financial Bird</title>
+</head>
+<body onload="initTheme();initHeaderBindings();">
+<header class="header"><div class="inner">
+  <div class="site-title">
+    <img class="logo" src="assets/financial-bird-logo.png" alt="The Financial Bird logo"/>
+    <h1>The Financial Bird</h1>
+    <label class="switch" style="margin-left:auto"><span class="small">Theme</span><input id="themeToggle" type="checkbox"/></label>
+    <a id="subscribeBtn" class="button secondary" href="#">Subscribe</a>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="calendars.html">Calendars</a>
+    <a href="portfolio.html">TFB Portfolio</a>
+    <a href="blog.html">Blog</a>
+    <a class="active" href="stocks-to-watch.html">Stocks to Watch</a>
+    <a href="about.html">About</a>
+  </nav>
+</div></header>
+
+<main class="container">
+  <div class="section card">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img class="logo" src="assets/financial-bird-logo.png" alt="logo"/>
+      <div>
+        <div class="kicker">This week</div>
+        <div class="h2">Stocks to watch</div>
+      </div>
+      <span class="badge">updated weekly</span>
+    </div>
+    <p>Two quick lists for the week of <span id="swRange"></span>: three S&amp;P 500 names and three niche names. Each includes a headline from this week on why it’s worth a look.</p>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+    <!-- S&amp;P 500 Section -->
+    <section class="card">
+      <div class="kicker">S&amp;P 500</div>
+      <div class="h3" style="margin:0 0 8px 0">Large caps</div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Apple (AAPL)</div>
+          <a href="https://www.investors.com/tag/apple-stock-news/" target="_blank" rel="noopener">“Apple's ‘invisible’ AI strategy weighs on stock” (Aug 29, 2025)</a>
+        </div>
+      </div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Microsoft (MSFT)</div>
+          <a href="https://techcommunity.microsoft.com/blog/microsoftteamsblog/what%E2%80%99s-new-in-microsoft-teams--august-2025/4448706" target="_blank" rel="noopener">Teams rolls out new features (Aug 28, 2025)</a>
+        </div>
+      </div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Amazon (AMZN)</div>
+          <a href="https://www.reuters.com/business/media-telecom/nbcuniversal-amazon-strike-deal-bring-peacock-prime-video-channels-2025-08-28/" target="_blank" rel="noopener">Peacock to Prime Video Channels deal (Aug 28, 2025)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Niche Section -->
+    <section class="card">
+      <div class="kicker">Niche names</div>
+      <div class="h3" style="margin:0 0 8px 0">Smaller or specialty</div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Celsius_Holdings_logo.png" alt="Celsius logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Celsius (CELH)</div>
+          <a href="https://www.marketbeat.com/instant-alerts/celsius-nasdaqcelh-sets-new-1-year-high-should-you-buy-2025-08-29/" target="_blank" rel="noopener">Sets new 1‑year high after strong Q2 (Aug 29, 2025)</a>
+        </div>
+      </div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Samsara_logo.svg" alt="Samsara logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Samsara (IOT)</div>
+          <a href="https://www.samsara.com/company/news/press-releases/Samsara-PDI-Program" target="_blank" rel="noopener">Launches pre‑delivery install program with Daimler Truck (Aug 26, 2025)</a>
+        </div>
+      </div>
+
+      <div class="item" style="display:flex;gap:12px;align-items:center;margin:8px 0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Duolingo_logo_%282019%29.svg" alt="Duolingo logo" style="width:36px;height:36px"/>
+        <div>
+          <div class="h4" style="margin:0">Duolingo (DUOL)</div>
+          <a href="https://www.reuters.com/business/duolingo-raises-2025-revenue-forecast-ai-tools-boost-user-engagement-2025-08-06/" target="_blank" rel="noopener">Raises FY2025 outlook on AI‑driven engagement (Aug 6, 2025)</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="assets/util.js"></script>
+<script src="assets/ai.js"></script>
+
+<script>
+(function(){
+  // Compute Honolulu (HST, UTC-10, no DST) week range Monday–Sunday
+  var MS_DAY=86400000, OFFSET=10*60*60*1000; // HST = UTC-10
+  var now=Date.now();
+  var localDays=Math.floor((now - OFFSET)/MS_DAY);
+  var midnightLocal = localDays*MS_DAY + OFFSET; // UTC ms for today's 00:00 HST
+  var dow = new Date(now - OFFSET).getUTCDay(); // 0=Sun..6=Sat in HST
+  var daysSinceMonday = (dow + 6) % 7; // Mon->0
+  var mondayUTC = midnightLocal - daysSinceMonday*MS_DAY;
+  var sundayUTC = mondayUTC + 6*MS_DAY;
+  function fmt(utc){
+    var d=new Date(utc);
+    var month=new Intl.DateTimeFormat('en-US',{timeZone:'Pacific/Honolulu',month:'short'}).format(d);
+    var day = new Intl.DateTimeFormat('en-US',{timeZone:'Pacific/Honolulu',day:'numeric'}).format(d);
+    var year = new Intl.DateTimeFormat('en-US',{timeZone:'Pacific/Honolulu',year:'numeric'}).format(d);
+    return {text: month+' '+day, year: year};
+  }
+  var m=fmt(mondayUTC), s=fmt(sundayUTC);
+  var txt = m.text+'–'+s.text+', '+s.year;
+  var el=document.getElementById('swRange');
+  if(el) el.textContent = txt;
+  // Optional TTL marker for weekly cadence
+  try{localStorage.setItem('tfb_sw_ts', String(Date.now()));}catch(e){}
+})();
+</script>
+
+</body></html>
