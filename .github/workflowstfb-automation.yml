@@ -1,0 +1,49 @@
+name: TFB content updaters
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'   # runs every 12 hours (UTC)
+  workflow_dispatch:          # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  run-updaters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+
+      - name: Run updaters
+        run: |
+          mkdir -p site/the-financial-bird-weekly-hourly/assets/data
+          # Adjust these commands to match how your scripts write output:
+          python scripts/update_research.py \
+            --out site/the-financial-bird-weekly-hourly/assets/data/research.json
+          python scripts/update_calendar.py \
+            --out site/the-financial-bird-weekly-hourly/assets/data/calendar.json
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "Automated: refresh research & calendar"
+            git push
+          else
+            echo "No changes"
+          fi
