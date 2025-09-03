@@ -1,0 +1,12 @@
+(function(){
+  function fmtDate(d){try{const x=(d instanceof Date)?d:new Date(d);return x.toLocaleString([], {hour:'2-digit',minute:'2-digit',month:'short',day:'numeric'})}catch(e){return ', '}}
+  function strip(html){const t=document.createElement('div');t.innerHTML=html;return t.textContent||t.innerText||''}
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+  function uniqBy(arr, key){const seen=new Set();return arr.filter(x=>{const k=key(x);if(seen.has(k))return false;seen.add(k);return true})}
+  function setTheme(t){document.documentElement.setAttribute('data-theme', t);localStorage.setItem('theme', t)}
+  function initTheme(){const t=localStorage.getItem('theme')||'light';setTheme(t);return t}
+  function getWeekKey(d){const x=new Date(d||new Date());const y=x.getFullYear();const first=new Date(y,0,1);const diff=Math.round(((x-first)/86400000 + first.getDay()+6)/7);return y+'-W'+diff}
+  function getWeekRange(date){const d=new Date(date||new Date());const day=d.getDay();const diffToMon=(day===0?-6:1-day);const monday=new Date(d);monday.setDate(d.getDate()+diffToMon);monday.setHours(0,0,0,0);const sunday=new Date(monday);sunday.setDate(monday.getDate()+6);sunday.setHours(23,59,59,999);return {monday,sunday,label:'Week of '+monday.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})};}
+  function summarize(text, maxSentences){maxSentences=maxSentences||2;const sents=text.replace(/\s+/g,' ').split(/(?<=[\.!?])\s/).slice(0,25);const keywords=['earnings','inflation','rates','guidance','demand','growth','yields','policy','jobs','spending','sales','forecast','manufacturing','housing','chip','bank','oil','energy','credit','PMI','ISM','FOMC','payrolls','CPI','PPI','GDP'];const scored=sents.map(s=>({s,score:keywords.reduce((a,k)=>a+(s.toLowerCase().includes(k.toLowerCase())?1:0),0)+s.length/240}));return scored.sort((a,b)=>b.score-a.score).slice(0,maxSentences).map(x=>x.s).join(' ')}
+  window.fmtDate=fmtDate; window.strip=strip; window.escapeHtml=escapeHtml; window.uniqBy=uniqBy; window.setTheme=setTheme; window.initTheme=initTheme; window.getWeekKey=getWeekKey; window.getWeekRange=getWeekRange; window.summarize=summarize;
+})();
